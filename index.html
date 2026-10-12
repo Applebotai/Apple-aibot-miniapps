@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>Apple Bot AI Dashboard</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #101114;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      background: #202126;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .muted { color: #b6b6c0; }
+    button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: #d9e0e8;
+      color: #101114;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🍎 Apple Bot AI</h2>
+  <p class="muted" id="welcome">Welcome to your dashboard</p>
+
+  <div class="card">
+    <p class="muted">Platform Status</p>
+    <h2>Online</h2>
+    <p class="muted">Dashboard demo only</p>
+  </div>
+
+  <div class="card">
+    <h3>Investment Overview</h3>
+    <p>Sample Balance: ₱0.00</p>
+    <p class="muted">
+      No real funds or transactions are connected.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>About Apple Bot AI</h3>
+    <p>
+      Explore AI technology, investment information,
+      and financial education in one place.
+    </p>
+    <p class="muted">
+      Investments carry risk. Profits are not guaranteed.
+      This demo is not affiliated with Apple Inc.
+    </p>
+  </div>
+
+  <button onclick="showInfo()">View App Information</button>
+
+  <script>
+    const app = window.Telegram?.WebApp;
+    if (app) {
+      app.ready();
+      app.expand();
+
+      const user = app.initDataUnsafe?.user;
+      if (user?.first_name) {
+        document.getElementById("welcome").textContent =
+          "Welcome, " + user.first_name + "!";
+      }
+    }
+
+    function showInfo() {
+      alert(
+        "Apple Bot AI: Demo dashboard. " +
+        "No real investments or earnings are connected."
+      );
+    }
+  </script>
+</body>
+</html>
