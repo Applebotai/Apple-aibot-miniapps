@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10131b">
+<title>Apple Bot AI Dashboard</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;padding:20px;
+  background:#10131b;color:#f5f6fa;
+  font-family:Arial,sans-serif
+}
+.app{max-width:850px;margin:auto}
+header{display:flex;align-items:center;gap:13px;margin-bottom:22px}
+.logo{
+  width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#edf2ff,#9eb8f5);
+  color:#10131b;font-size:27px;font-weight:bold
+}
+h1{font-size:24px;margin:0}
+.subtitle{color:#aab4c7;font-size:13px;margin-top:5px}
+.notice{
+  padding:13px;border:1px solid #665333;
+  background:#292317;border-radius:12px;
+  color:#ffe0a3;font-size:12px;line-height:1.6
+}
+h2{font-size:19px;margin:25px 0 14px}
+.overview{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:10px
+}
+.card,.plan{
+  background:#1b2130;border:1px solid #30394c;
+  border-radius:16px;padding:16px
+}
+.label{font-size:12px;color:#aab4c7}
+.value{font-size:21px;font-weight:bold;margin-top:8px}
+.plans{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px
+}
+.plan-title{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:15px
+}
+.plan-title h3{margin:0;font-size:19px}
+.tag{
+  font-size:10px;padding:5px 8px;border-radius:20px;
+  background:#293650;color:#c6d8ff
+}
+.capital{font-size:27px;font-weight:bold;margin-top:5px}
+.metrics{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:10px;margin-top:15px
+}
+.metric{background:#131824;border-radius:10px;padding:11px}
+.metric .value{font-size:16px}
+.revenue{
+  margin-top:10px;padding:12px;border-radius:10px;
+  background:#242d40
+}
+.revenue .value{font-size:20px;color:#c6d8ff}
+.small{font-size:11px;color:#aab4c7;line-height:1.6}
+.disclaimer{
+  margin-top:22px;border:1px solid #30394c;
+  border-radius:14px;padding:15px;
+  font-size:12px;color:#b7c0d0;line-height:1.7
+}
+footer{text-align:center;color:#8791a4;font-size:11px;margin:22px 0}
+@media(max-width:520px){
+  body{padding:14px}
+  .overview{grid-template-columns:1fr}
+  .overview .value{font-size:19px}
+  .plans{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <header>
+    <div class="logo">A</div>
+    <div>
+      <h1>Apple Bot AI</h1>
+      <div class="subtitle">AI Investment Dashboard</div>
+      <div class="subtitle">Digital platform · 24/7 access</div>
+    </div>
+  </header>
+
+  <div class="notice">
+    <strong>DEMONSTRATION ONLY</strong><br>
+    Plan figures are examples supplied for this dashboard.
+    They are not verified offers or guaranteed earnings.
+    Investments can lose money. Do not deposit funds based
+    on projected returns alone.
+  </div>
+
+  <h2>Dashboard Overview</h2>
+  <section class="overview">
+    <div class="card">
+      <div class="label">Available Plans</div>
+      <div class="value">08 Plans</div>
+    </div>
+    <div class="card">
+      <div class="label">Plan Period</div>
+      <div class="value">35 Days</div>
+    </div>
+    <div class="card">
+      <div class="label">Currency</div>
+      <div class="value">USD ($)</div>
+    </div>
+  </section>
+
+  <h2>Investment Plans</h2>
+  <section class="plans" id="plans"></section>
+
+  <section class="disclaimer">
+    <strong>Financial Risk Disclosure</strong><br>
+    This dashboard is a visual prototype only. It does not
+    accept deposits, execute trades, connect to a brokerage,
+    or verify investment profits. Daily figures and total
+    revenue are illustrative values provided for display.
+    Actual investment returns are uncertain and losses are
+    possible. Verify any provider's licensing and regulatory
+    status before investing. Apple Bot AI is not affiliated
+    with Apple Inc.
+  </section>
+
+  <footer>
+    Apple Bot AI · Mini App Dashboard Prototype
+  </footer>
+</main>
+
+<script>
+const plans = [
+  {name:"XR", capital:5, daily:0.40, days:35, total:14},
+  {name:"XS", capital:15, daily:1.35, days:35, total:47.25},
+  {name:"11", capital:30, daily:3, days:35, total:105},
+  {name:"12", capital:45, daily:4.95, days:35, total:173.25},
+  {name:"13", capital:70, daily:10.5, days:35, total:367.5},
+  {name:"14", capital:100, daily:17, days:35, total:595},
+  {name:"15", capital:200, daily:38, days:35, total:1330},
+  {name:"16", capital:500, daily:95, days:35, total:3325}
+];
+
+const usd = amount => "$" + amount.toLocaleString("en-US", {
+  minimumFractionDigits:2,
+  maximumFractionDigits:2
+});
+
+document.getElementById("plans").innerHTML = plans.map(p => `
+  <article class="plan">
+    <div class="plan-title">
+      <h3>Plan ${p.name}</h3>
+      <span class="tag">35-DAY PLAN</span>
+    </div>
+
+    <div class="label">Capital Amount</div>
+    <div class="capital">${usd(p.capital)}</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="label">Daily Figure</div>
+        <div class="value">${usd(p.daily)}</div>
+      </div>
+      <div class="metric">
+        <div class="label">Duration</div>
+        <div class="value">${p.days} days</div>
+      </div>
+    </div>
+
+    <div class="revenue">
+      <div class="label">Example Total Revenue</div>
+      <div class="value">${usd(p.total)}</div>
+    </div>
+
+    <p class="small">
+      Illustrative figures only. Actual returns are not guaranteed.
+    </p>
+  </article>
+`).join("");
+
+const app = window.Telegram?.WebApp;
+if (app) {
+  app.ready();
+  app.expand();
+}
+</script>
+</body>
+</html>
